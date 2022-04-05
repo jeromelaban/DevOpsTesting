@@ -9,7 +9,8 @@ steps:
     whereis mono
     sudo apt install gtk-sharp2
     git clone --recurse-submodules https://github.com/mono/SkiaSharp.git
-    export VERBOSITY=detailed
+    export UnoSourceGeneratorUseGenerationHost=true
+    export UnoSourceGeneratorUseGenerationController=false
     cd SkiaSharp
     dotnet tool restore
     dotnet cake --target=externals-download
