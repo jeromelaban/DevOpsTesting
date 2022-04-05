@@ -12,5 +12,5 @@ steps:
     cd SkiaSharp
     dotnet tool restore
     dotnet cake --target=externals-download
-    msbuild /r /v:d /p:Configuration=Release /p:UnoSourceGeneratorCaptureGenerationHostOutput:true /p:UnoSourceGeneratorUseGenerationHost=true /p:UnoSourceGeneratorUseGenerationController=false source/SkiaSharp.Views.Uno/SkiaSharp.Views.Uno.Wasm/SkiaSharp.Views.Uno.Wasm.csproj
+    msbuild /r /v:d /p:Configuration=Release /p:UnoSourceGeneratorCaptureGenerationHostOutput=true /p:UnoSourceGeneratorUseGenerationHost=true /p:UnoSourceGeneratorUseGenerationController=false source/SkiaSharp.Views.Uno/SkiaSharp.Views.Uno.Wasm/SkiaSharp.Views.Uno.Wasm.csproj
     # dotnet cake --target=libs --skipExternals="all"
