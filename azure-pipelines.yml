@@ -6,6 +6,7 @@ trigger:
 
 steps:
  - bash: |
+    sudo apt install gtk-sharp2
     git clone --recurse-submodules https://github.com/mono/SkiaSharp.git
     cd SkiaSharp
     dotnet tool restore
