@@ -14,4 +14,5 @@ steps:
     cd SkiaSharp
     dotnet tool restore
     dotnet cake --target=externals-download
-    dotnet cake --target=libs --skipExternals="all"
+    msbuild /r /p:Configuration=Release source/SkiaSharp.Views.Uno/SkiaSharp.Views.Uno.Wasm/SkiaSharp.Views.Uno.Wasm.csproj
+    # dotnet cake --target=libs --skipExternals="all"
