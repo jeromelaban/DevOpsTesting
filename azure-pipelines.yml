@@ -67,7 +67,7 @@ stages:
 
             displayName: Echo
 
-- stage: Publish_Prod
+- stage: Publish_Prod_Dev
   condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), not(eq(variables['build.reason'], 'PullRequest')))
   dependsOn: Prepare
   jobs:
@@ -83,6 +83,10 @@ stages:
 
             displayName: Echo
   
+- stage: Publish_Prod_Public
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), not(eq(variables['build.reason'], 'PullRequest')))
+  dependsOn: Publish_Prod_Dev
+  jobs:
   - deployment: 'Nuget_Prod_Nuget_Ord'
     displayName: 'Nuget Publish Prod NuGet.org'
     environment: 'Uno Studio Production'
