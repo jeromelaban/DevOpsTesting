@@ -52,7 +52,7 @@ stages:
       displayName: Echo
 
 - stage: Publish_Dev
-  condition: and(succeed(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), not(eq(variables['build.reason'], 'PullRequest')))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), not(eq(variables['build.reason'], 'PullRequest')))
   dependsOn: Prepare
   jobs:
   - deployment: 'Nuget'
@@ -68,7 +68,7 @@ stages:
             displayName: Echo
 
 - stage: Publish_Prod
-  condition: and(succeed(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), not(eq(variables['build.reason'], 'PullRequest')))
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), not(eq(variables['build.reason'], 'PullRequest')))
   dependsOn: Prepare
   jobs:
   - deployment: 'Nuget_Prod_Dev'
