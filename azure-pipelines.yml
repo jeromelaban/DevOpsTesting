@@ -48,7 +48,7 @@ stages:
 
     - powershell: |
         echo Prepare job
-        exit 1
+        # exit 1
       displayName: Echo
 
 - stage: Publish_Dev
