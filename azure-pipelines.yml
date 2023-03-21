@@ -15,6 +15,7 @@ trigger:
 #     msbuild /r /v:d /p:Configuration=Release /p:BuildingInsideUnoSourceGenerator=true source/SkiaSharp.Views.Uno/SkiaSharp.Views.Uno.Wasm/SkiaSharp.Views.Uno.Wasm.csproj
 #     # dotnet cake --target=libs --skipExternals="all"
 
+
 stages:
 - stage: Build
   jobs:
