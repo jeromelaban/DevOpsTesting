@@ -4,13 +4,91 @@ pool:
 trigger:
   - master
 
-steps:
- - bash: |
-    whereis mono
-    sudo apt install gtk-sharp2
-    git clone --recurse-submodules https://github.com/mono/SkiaSharp.git
-    cd SkiaSharp
-    dotnet tool restore
-    dotnet cake --target=externals-download
-    msbuild /r /v:d /p:Configuration=Release /p:BuildingInsideUnoSourceGenerator=true source/SkiaSharp.Views.Uno/SkiaSharp.Views.Uno.Wasm/SkiaSharp.Views.Uno.Wasm.csproj
-    # dotnet cake --target=libs --skipExternals="all"
+# steps:
+#  - bash: |
+#     whereis mono
+#     sudo apt install gtk-sharp2
+#     git clone --recurse-submodules https://github.com/mono/SkiaSharp.git
+#     cd SkiaSharp
+#     dotnet tool restore
+#     dotnet cake --target=externals-download
+#     msbuild /r /v:d /p:Configuration=Release /p:BuildingInsideUnoSourceGenerator=true source/SkiaSharp.Views.Uno/SkiaSharp.Views.Uno.Wasm/SkiaSharp.Views.Uno.Wasm.csproj
+#     # dotnet cake --target=libs --skipExternals="all"
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+
+    pool:
+      vmImage: 'windows-2022'
+
+    steps:
+    - checkout: self
+      clean: 'true'
+      fetchDepth: 0
+
+    - powershell: |
+        echo Build job
+
+      displayName: Setup VS17 Path
+
+
+- stage: Prepare
+  condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')))
+  jobs:
+  - job: Sign
+  
+    pool:
+      vmImage: 'windows-2022'
+
+    steps:
+
+    - powershell: |
+        echo Prepare job
+
+      displayName: Echo
+
+- stage: Publish_Dev
+  condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/main'), not(eq(variables['build.reason'], 'PullRequest')))
+  dependsOn: Prepare
+  jobs:
+  - deployment: 'Nuget'
+    displayName: 'Nuget Publish Dev'
+    environment: 'Uno Studio Development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - powershell: |
+              echo Prepare job
+
+            displayName: Echo
+
+- stage: Publish_Prod
+  condition: and(startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), not(eq(variables['build.reason'], 'PullRequest')))
+  dependsOn: Prepare
+  jobs:
+  - deployment: 'Nuget_Prod_Dev'
+    displayName: 'Nuget Publish Prod Dev'
+    environment: 'Uno Studio Production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - powershell: |
+              echo Prepare job
+
+            displayName: Echo
+  
+  - deployment: 'Nuget_Prod_Nuget_Ord'
+    displayName: 'Nuget Publish Prod NuGet.org'
+    environment: 'Uno Studio Production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - powershell: |
+              echo Prepare job
+
+            displayName: Echo
