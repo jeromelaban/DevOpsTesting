@@ -35,6 +35,8 @@ stages:
       
     - pwsh: |
         Set-PSDebug -Trace 1
+
+        wsl --set-default-version 1
     
         # Workaround from https://github.com/actions/runner-images/issues/6844#issuecomment-1367225048
         # At the time of this comment (30-12-2022) this only works on Azure DevOps hosted
@@ -46,7 +48,7 @@ stages:
         wsl --version
   
         write-host "WSL install of ubuntu."
-        wsl --install -n -d Ubuntu-20.04 --web-download
+        wsl --install -d Ubuntu-20.04 --web-download
   
         write-host "Launch WSL."
         $wsl = wsl -l -v | out-string
