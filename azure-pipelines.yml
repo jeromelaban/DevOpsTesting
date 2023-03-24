@@ -48,7 +48,20 @@ stages:
         wsl --version
   
         write-host "WSL install of ubuntu."
-        wsl --install -d Ubuntu-20.04 --web-download
+
+        #wsl --install -d Ubuntu-20.04 --web-download
+
+
+        $url = "https://aka.ms/wslubuntu2004" # URL of the file to download
+        $outputFolder = "C:\output" # Folder where the uncompressed files will be saved
+
+        # Download the file
+        Invoke-WebRequest $url -OutFile "$outputFolder\distro.zip"
+
+        # Uncompress the file
+        Expand-Archive -Path "$outputFolder\file.zip" -DestinationPath $outputFolder
+
+        & $outputFolder\ubuntu.exe install --root
   
         write-host "Launch WSL."
         $wsl = wsl -l -v | out-string
