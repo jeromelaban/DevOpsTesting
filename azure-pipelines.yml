@@ -53,7 +53,9 @@ stages:
 
 
         $url = "https://aka.ms/wslubuntu2004" # URL of the file to download
-        $outputFolder = "C:\output" # Folder where the uncompressed files will be saved
+        $outputFolder = "$env:TEMP\wsl-install" # Folder where the uncompressed files will be saved
+
+        mkdir $outputFolder
 
         # Download the file
         Invoke-WebRequest $url -OutFile "$outputFolder\distro.zip"
