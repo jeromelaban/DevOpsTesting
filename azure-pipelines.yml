@@ -34,7 +34,7 @@ stages:
       clean: true
       
     - pwsh: |
-        # Set-PSDebug -Trace 1
+        Set-PSDebug -Trace 1
     
         # Workaround from https://github.com/actions/runner-images/issues/6844#issuecomment-1367225048
         # At the time of this comment (30-12-2022) this only works on Azure DevOps hosted
