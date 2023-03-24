@@ -61,7 +61,7 @@ stages:
         Invoke-WebRequest $url -OutFile "$outputFolder\distro.zip"
 
         # Uncompress the file
-        Expand-Archive -Path "$outputFolder\file.zip" -DestinationPath $outputFolder
+        Expand-Archive -Path "$outputFolder\distro.zip" -DestinationPath $outputFolder
 
         & $outputFolder\ubuntu.exe install --root
   
