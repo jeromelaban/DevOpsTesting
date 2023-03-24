@@ -54,8 +54,10 @@ stages:
 
         $url = "https://aka.ms/wslubuntu2004" # URL of the file to download
         $outputFolder = "$env:TEMP\wsl-install" # Folder where the uncompressed files will be saved
+        $outputFolder2 = "$env:TEMP\wsl-install2" # Folder where the uncompressed files will be saved
 
         mkdir $outputFolder
+        mkdir $outputFolder2
 
         # Download the file
         Invoke-WebRequest $url -OutFile "$outputFolder\distro.zip"
@@ -63,9 +65,9 @@ stages:
         # Uncompress the file
         Expand-Archive -Path "$outputFolder\distro.zip" -DestinationPath $outputFolder
 
-        Expand-Archive -Path "$outputFolder\Ubuntu*_x64.appx" -DestinationPath $outputFolder
+        Expand-Archive -Path "$outputFolder\Ubuntu*_x64.appx" -DestinationPath $outputFolder2
 
-        & $outputFolder\ubuntu.exe install --root
+        & $outputFolder2\ubuntu.exe install --root
   
         write-host "Launch WSL."
         $wsl = wsl -l -v | out-string
