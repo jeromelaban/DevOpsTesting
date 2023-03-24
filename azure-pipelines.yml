@@ -63,6 +63,8 @@ stages:
         # Uncompress the file
         Expand-Archive -Path "$outputFolder\distro.zip" -DestinationPath $outputFolder
 
+        Expand-Archive -Path "$outputFolder\Ubuntu*_.x86.appx" -DestinationPath $outputFolder
+
         & $outputFolder\ubuntu.exe install --root
   
         write-host "Launch WSL."
