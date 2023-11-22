@@ -38,6 +38,8 @@ stages:
         dotnet new classlib
         dotnet add package Newtonsoft.Json --version 13.0.3
         dir $env:UserProfile\.nuget\packages
+
+        
   
       displayName: test nuget
  
