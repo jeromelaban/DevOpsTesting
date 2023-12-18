@@ -16,14 +16,19 @@ trigger:
 #     msbuild /r /v:d /p:Configuration=Release /p:BuildingInsideUnoSourceGenerator=true source/SkiaSharp.Views.Uno/SkiaSharp.Views.Uno.Wasm/SkiaSharp.Views.Uno.Wasm.csproj
 #     # dotnet cake --target=libs --skipExternals="all"
 
+resources:
+  containers:
+  - container: nv-bionic-wasm
+    image: unoplatform/wasm-build:3.0
 
 stages:
 - stage: Build
   jobs:
   - job: Build
 
-    pool:
-      vmImage: 'windows-2022'
+    container:
+      image: nv-bionic-wasm
+      options: "--name ci-container --shm-size=2gb"
 
     steps:
     - checkout: self
