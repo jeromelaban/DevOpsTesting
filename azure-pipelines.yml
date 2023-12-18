@@ -28,7 +28,7 @@ stages:
 
     container:
       image: nv-bionic-wasm
-      options: "--shm-size=2gb"
+      options: "--name ci-container"
 
     steps:
     - checkout: self
