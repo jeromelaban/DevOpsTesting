@@ -27,8 +27,8 @@ stages:
   - job: Build
 
     container:
-      image: nv-bionic-wasm
-      options: "--name ci-container"
+      image: unoplatform/wasm-build:3.0
+      options: "--name ci-container --shm-size=2gb"
 
     steps:
     - checkout: self
