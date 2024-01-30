@@ -12,8 +12,12 @@ jobs:
       - name: 🤘 checkout
         uses: actions/checkout@v2
 
+      - name: clean workloads
+        run: |
+           dotnet workload clean --all
+
       - name: Install Visual Studio Preview
         run: |
           dotnet tool install --global Uno.Check --version 1.19.0
-          uno-check -v --ci --non-interactive --fix --verbose --manifest https://raw.githubusercontent.com/unoplatform/uno.check/1.19.0/manifests/uno.ui.manifest.json --skip xcode --skip gtk3 --skip vswin --skip vsmac
+          uno-check -v --ci --non-interactive --fix --verbose --manifest https://raw.githubusercontent.com/unoplatform/uno.check/1.19.0/manifests/uno.ui.manifest.json --skip xcode --skip gtk3 --skip androidsdk --skip androidemulator --skip vswin --skip vsmac
 
