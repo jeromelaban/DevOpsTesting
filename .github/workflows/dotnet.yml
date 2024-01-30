@@ -16,3 +16,4 @@ jobs:
         run: |
           dotnet tool install --global Uno.Check --version 1.19.0
           uno-check -v --ci --non-interactive --fix --verbose --manifest https://raw.githubusercontent.com/unoplatform/uno.check/1.19.0/manifests/uno.ui.manifest.json --skip xcode --skip gtk3 --skip vswin --skip vsmac
+
