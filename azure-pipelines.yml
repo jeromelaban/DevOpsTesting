@@ -38,12 +38,12 @@ stages:
     - checkout: self
       clean: true
       
-    - task: UseDotNet@2
-      displayName: 'Use .NET SDK'
-      retryCountOnTaskFailure: 3
-      inputs:
-        version: 9.x
-        includePreviewVersions: true
+    # - task: UseDotNet@2
+    #   displayName: 'Use .NET SDK'
+    #   retryCountOnTaskFailure: 3
+    #   inputs:
+    #     version: 9.x
+    #     includePreviewVersions: true
 
     - pwsh: |
         dotnet tool install --global Uno.Check --version 1.20.0
