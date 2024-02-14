@@ -38,11 +38,16 @@ stages:
     - checkout: self
       clean: true
       
+    - task: UseDotNet@2
+      displayName: 'Use .NET SDK'
+      retryCountOnTaskFailure: 3
+      inputs:
+        version: 9.x
+        includePreviewVersions: true
+
     - pwsh: |
-        mkdir test
-        dotnet new classlib
-        dotnet add package Newtonsoft.Json --version 13.0.3
-        dir $env:UserProfile\.nuget\packages
-  
-      displayName: test nuget
+        dotnet workload install ios macos android maccatalyst
+
+    - pwsh: |
+        dotnet workload update --print-rollback
  
