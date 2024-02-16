@@ -59,9 +59,16 @@ stages:
     - powershell: |
         echo "##vso[task.setvariable variable=DotnetSdkPath]$env:DOTNET_ROOT"
 
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(DotnetSdkPath)'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/dotnet.zip'
+
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: $(DotnetSdkPath)
+        targetPath: $(Build.ArtifactStagingDirectory)
         artifactName: dotnet-sdk-binaries
 
   - job: Build2
@@ -87,7 +94,13 @@ stages:
       displayName: Download .NET SDK
       inputs:
         artifact: dotnet-sdk-binaries
-        path: $(DotnetSdkPath)
+        path: $(Build.ArtifactStagingDirectory)
+
+    - task: ExtractFiles@1
+      inputs:
+        archiveFilePatterns: '(Build.ArtifactStagingDirectory)/dotnet.zip'
+        destinationFolder: $(Build.SourcesDirectory)\dotnet
+
 
     - pwsh: |
         dotnet tool install --global Uno.Check --version 1.21.0-dev.3
