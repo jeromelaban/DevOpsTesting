@@ -79,4 +79,7 @@ stages:
       inputs:
         artifact: dotnet-sdk-binaries
         path: $(DotnetSdkPath)
-        
+
+    - pwsh: |
+        dotnet tool install --global Uno.Check --version 1.21.0-dev.3
+        & uno-check -v --ci --non-interactive --fix --skip xcode --skip gtk3 --skip vswin --skip androidemulator --skip androidsdk --skip vsmac
