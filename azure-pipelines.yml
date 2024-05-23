@@ -72,7 +72,7 @@ stages:
         }
 
     - ${{ each var in variables }}:
-      - ${{ if startsWith(var.key, 'TemplateValidation_') }}:
-        - script: echo '$(var.key)=$(var.value)'
-          displayName: ${{ replace(var.key, 'TemplateValidation_', '') }}
+      #- ${{ if startsWith(var.key, 'TemplateValidation_') }}:
+      - script: echo '$(var.key)=$(var.value)'
+        displayName: ${{ replace(var.key, 'TemplateValidation_', '') }}
 
