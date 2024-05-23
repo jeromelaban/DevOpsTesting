@@ -50,8 +50,9 @@ stages:
           }
 
           $matrixAsJson = $matrixGroups | ConvertTo-Json
+          $matrixAsJson = $matrixAsJson.Replace("`r`n","")
 
-          echo "##vso[task.setVariable variable=legs;isOutput=true]$matrixAsJson.Replace("`r`n","`n")"
+          echo "##vso[task.setVariable variable=legs;isOutput=true]$matrixAsJson"
         name: mtrx
 
   - job: runner
