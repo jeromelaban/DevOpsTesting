@@ -55,6 +55,10 @@ stages:
   - job: runner
     dependsOn: Matrix_Gen
     strategy:
-      matrix: $[ dependencies.Matrix_Gen.outputs['mtrx.legs'] ]
+      matrix: #$[ dependencies.Matrix_Gen.outputs['mtrx.legs'] ]
+        string1:
+          string2: 
+            - string3
+            - string2
     steps:
     - script: echo $(myvar) # echos A or B depending on which leg is running
