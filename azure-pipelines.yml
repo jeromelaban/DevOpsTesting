@@ -33,16 +33,16 @@ stages:
                 'unoCheckArgs' = '--pre-major'
                 'validations' =
                     '
-                      { ''Name'': ''Recommended'', ''Args'': ''-preset recommended'' },
-                      { ''Name'': ''Blank'', ''Args'': ''-preset blank'' },
+                      Recommended;-preset recommended
+                      Blank;-preset blank
                     '
             }
             'Group1' = @{
                 'unoCheckArgs' = '--pre-major'
                 'validations' = 
                     '
-                      { ''Name'': ''Recommended'', ''Args'': ''-preset recommended'' },
-                      { ''Name'': ''Blank'', ''Args'': ''-preset blank'' },
+                      Recommended;-preset recommended
+                      Blank;-preset blank
                     '
             }
           }
@@ -59,9 +59,18 @@ stages:
       matrix: $[ dependencies.Matrix_Gen.outputs['mtrx.legs'] ]
     steps:
     - pwsh: |
-        echo "##vso[task.setVariable variable=validationSteps]$(validations)"
-        echo "validations=$validations"
+        $validationsArray = ("$(validations)" -split '\r?\n').Trim()
 
-    - ${{ each var in variables.validationSteps }}:
-      - script: echo '$(var.key)=$(var.value)' 
+        for($v in $validationsArray)
+        {
+          $fields = ("$(v)" -split ';').Trim()
+
+          echo "##vso[task.setVariable variable=TemplateValidation_$fields[0]]$fields[1]"
+          echo "$fields[0]=$fields[1]"
+        }
+
+    - ${{ each var in variables }}:
+      - ${{ if startsWith(var.key, 'TemplateValidation_') }}:
+        - script: echo '$(var.key)=$(var.value)'
+          displayName: ${{ replace(var.key, 'TemplateValidation_', '') }}
 
