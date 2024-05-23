@@ -30,20 +30,20 @@ stages:
       - pwsh: |
           $matrixGroups = @{
             'Group0' = @{
+                'unoCheckArgs' = '--pre-major'
                 'validations' =
                     '
-                      -preset recommended `
-                      -preset blank `
+                      { `'Name`': `'Recommended`', `'Args`': `'-preset recommended`' },
+                      { `'Name`': `'Blank`', `'Args`': `'-preset blank`' },
                     '
-                'unoCheckArgs' = '--pre-major'
             }
             'Group1' = @{
+                'unoCheckArgs' = '--pre-major'
                 'validations' = 
                     '
-                      -preset recommended `
-                      -preset blank `
+                      { `'Name`': `'Recommended`', `'Args`': `'-preset recommended`' },
+                      { `'Name`': `'Blank`', `'Args`': `'-preset blank`' },
                     '
-                'unoCheckArgs' = '--pre-major'
             }
           }
 
@@ -58,5 +58,9 @@ stages:
     strategy:
       matrix: $[ dependencies.Matrix_Gen.outputs['mtrx.legs'] ]
     steps:
-    - script: echo $(validations) # echos A or B depending on which leg is running
-    - script: echo $(unoCheckArgs) # echos A or B depending on which leg is running
+    - pwsh: |
+        echo "##vso[task.setVariable variable=validationSteps;isOutput=true]$validations"
+
+    - ${{ each var in split(variables.validationSteps, ', ') }}:
+      - script: echo '$(var.key)=$(var.value)' 
+
