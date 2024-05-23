@@ -77,7 +77,7 @@ stages:
         echo "validations: $(validations)"
         echo "validations: ${{ variables.Group0.validations'] }}"
 
-    - ${{ each v in variables }}:
+    - $[ each v in variables ]:
         - script: |
             echo 'v: ${{ v.key }} / ${{ v.value }}'
           displayName: ${{ v.key }}
