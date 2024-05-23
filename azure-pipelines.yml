@@ -59,7 +59,7 @@ stages:
       matrix: $[ dependencies.Matrix_Gen.outputs['mtrx.legs'] ]
     steps:
     - pwsh: |
-        echo "##vso[task.setVariable variable=validationSteps;isOutput=true]$validations"
+        echo "##vso[task.setVariable variable=validationSteps;isOutput=true]$(validations)"
         echo "validations=$validations"
 
     - ${{ each var in variables.validationSteps }}:
