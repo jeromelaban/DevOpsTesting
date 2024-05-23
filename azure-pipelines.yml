@@ -31,17 +31,19 @@ stages:
           $matrixGroups = @{
               'MyList' = @{
                   'Group0' = @{
-                      'validations' = @(
-                          '-preset recommended'
-                          '-preset blank'
-                      )
+                      'validations' =
+                          '
+                            -preset recommended `
+                            -preset blank `
+                          '
                       'unoCheckArgs' = '--pre-major'
                   }
                   'Group1' = @{
-                      'validations' = @(
-                          '-preset recommended'
-                          '-preset blank'
-                      )
+                      'validations' = 
+                          '
+                            -preset recommended `
+                            -preset blank `
+                          '
                       'unoCheckArgs' = '--pre-major'
                   }
               }
@@ -55,10 +57,6 @@ stages:
   - job: runner
     dependsOn: Matrix_Gen
     strategy:
-      matrix: #$[ dependencies.Matrix_Gen.outputs['mtrx.legs'] ]
-        string1:
-          string2: 
-            - string3
-            - string2
+      matrix: $[ dependencies.Matrix_Gen.outputs['mtrx.legs'] ]
     steps:
     - script: echo $(myvar) # echos A or B depending on which leg is running
