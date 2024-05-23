@@ -50,7 +50,7 @@ stages:
           $matrixAsJson = $matrixGroups | ConvertTo-Json
           $matrixAsJson = $matrixAsJson.Replace("`r`n","")
 
-          echo "##vso[task.setVariable variable=legs;isOutput=true]$matrixAsJson"
+          echo "##vso[task.setvariable variable=legs;isOutput=true]$matrixAsJson"
         name: mtrx
 
   - job: runner
@@ -67,14 +67,14 @@ stages:
         {
           $fields = ("$v" -split ';').Trim()
 
-          $vsoVar="vso[task.setVariable variable=TemplateValidation_$($fields[0])]$($fields[1])";
+          $vsoVar="vso[task.setvariable variable=TEMPLATEVALIDATION_$($fields[0]);isoutput=true]$($fields[1])";
 
           echo "##$vsoVar"
           echo "$vsoVar"
         }
 
     - ${{ each var in variables }}:
-      #- ${{ if startsWith(var.key, 'TemplateValidation_') }}:
+      #- ${{ if startsWith(var.key, 'TEMPLATEVALIDATION_') }}:
       - script: echo '$(var.key)=$(var.value)'
-        displayName: ${{ replace(var.key, 'TemplateValidation_', '') }}
+        displayName: ${{ replace(var.key, 'TEMPLATEVALIDATION_', '') }}
 
