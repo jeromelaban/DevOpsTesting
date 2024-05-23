@@ -61,7 +61,7 @@ stages:
     - pwsh: |
         $validationsArray = ("$(validations)" -split '\r?\n').Trim()
 
-        for($v in $validationsArray)
+        foreach($v in $validationsArray)
         {
           $fields = ("$(v)" -split ';').Trim()
 
