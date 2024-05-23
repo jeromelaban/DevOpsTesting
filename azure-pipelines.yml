@@ -58,4 +58,5 @@ stages:
     strategy:
       matrix: $[ dependencies.Matrix_Gen.outputs['mtrx.legs'] ]
     steps:
-    - script: echo $(myvar) # echos A or B depending on which leg is running
+    - script: echo $(validations) # echos A or B depending on which leg is running
+    - script: echo $(unoCheckArgs) # echos A or B depending on which leg is running
