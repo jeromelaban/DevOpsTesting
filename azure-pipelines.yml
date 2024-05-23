@@ -50,6 +50,7 @@ stages:
           $matrixAsJson = $matrixGroups | ConvertTo-Json
 
           echo "##vso[task.setVariable variable=legs;isOutput=true]$matrixAsJson"
+        name: mtrx
 
   - job: runner
     dependsOn: Matrix_Gen
