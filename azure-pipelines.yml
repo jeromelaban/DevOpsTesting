@@ -80,7 +80,7 @@ stages:
     - ${{ each v in variables }}:
         - script: |
             echo 'v: ${{ v.key }} / ${{ v.value }}'
-          displayName: ${{ split(v,';')[0] }}
+          displayName: ${{ split(v.value,';')[0] }}
 
     - ${{ each v in split(variables['validations'], '|') }}:
         - script: |
