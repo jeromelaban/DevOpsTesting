@@ -59,7 +59,7 @@ stages:
   - job: runner
 
     strategy:
-      matrix: $[ dependencies.Matrix_Gen.outputs['mtrx.legs'] ]
+      matrix: $[ dependencies.Build.Matrix_Gen.outputs['mtrx.legs'] ]
 
     steps:
     # - pwsh: |
