@@ -29,24 +29,22 @@ stages:
     steps:
       - pwsh: |
           $matrixGroups = @{
-              'MyList' = @{
-                  'Group0' = @{
-                      'validations' =
-                          '
-                            -preset recommended `
-                            -preset blank `
-                          '
-                      'unoCheckArgs' = '--pre-major'
-                  }
-                  'Group1' = @{
-                      'validations' = 
-                          '
-                            -preset recommended `
-                            -preset blank `
-                          '
-                      'unoCheckArgs' = '--pre-major'
-                  }
-              }
+            'Group0' = @{
+                'validations' =
+                    '
+                      -preset recommended `
+                      -preset blank `
+                    '
+                'unoCheckArgs' = '--pre-major'
+            }
+            'Group1' = @{
+                'validations' = 
+                    '
+                      -preset recommended `
+                      -preset blank `
+                    '
+                'unoCheckArgs' = '--pre-major'
+            }
           }
 
           $matrixAsJson = $matrixGroups | ConvertTo-Json
