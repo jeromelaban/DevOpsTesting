@@ -77,6 +77,11 @@ stages:
         echo "validations: $(validations)"
         echo "validations: ${{ variables['validations'] }}"
 
+    - ${{ each v in variables }}:
+        - script: |
+            echo 'v: ${{ v }}'
+          displayName: ${{ split(v,';')[0] }}
+
     - ${{ each v in split(variables['validations'], '|') }}:
         - script: |
             echo 'v: ${{ v }}'
