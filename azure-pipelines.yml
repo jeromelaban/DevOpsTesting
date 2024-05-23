@@ -53,13 +53,11 @@ stages:
           echo "##vso[task.setvariable variable=legs;isOutput=true]$matrixAsJson"
         name: mtrx
 
-- stage: Build2
-  dependsOn: Build
-  jobs:
   - job: runner
+    dependsOn: Matrix_Gen
 
     strategy:
-      matrix: $[ dependencies.Build.Matrix_Gen.outputs['mtrx.legs'] ]
+      matrix: $[ dependencies.Matrix_Gen.outputs['mtrx.legs'] ]
 
     steps:
     # - pwsh: |
@@ -77,7 +75,7 @@ stages:
 
     - pwsh: |
         echo "validations: $(validations)"
-        echo "validations: ${{ variables['validations'] }}"
+        echo "validations: ${{ variables.Group0.validations'] }}"
 
     - ${{ each v in variables }}:
         - script: |
