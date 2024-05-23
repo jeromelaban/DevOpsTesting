@@ -73,11 +73,11 @@ stages:
 
     - pwsh: |
         echo "validations: $(validations)"
-        echo "validations: ${{ variables.validation }}"
+        echo "validations: ${{ variables.validations }}"
 
-    - ${{ each validation in split(variables.validations, '|') }}:
+    - ${{ each v in split(variables.validations, '|') }}:
         - script: |
-            echo 'validation: ${{ validation }}'
-            echo 'validation split: ${{ split(validation,';')[1] }}'
-          displayName: ${{ split(validation,';')[0] }}
+            echo 'v: ${{ v }}'
+            echo 'v split: ${{ split(v,';')[1] }}'
+          displayName: ${{ split(v,';')[0] }}
 
