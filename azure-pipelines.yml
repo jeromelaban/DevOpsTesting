@@ -63,7 +63,7 @@ stages:
 
         foreach($v in $validationsArray)
         {
-          $fields = ("$(v)" -split ';').Trim()
+          $fields = ("$v" -split ';').Trim()
 
           echo "##vso[task.setVariable variable=TemplateValidation_$fields[0]]$fields[1]"
           echo "$fields[0]=$fields[1]"
