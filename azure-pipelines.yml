@@ -60,6 +60,7 @@ stages:
     steps:
     - pwsh: |
         echo "##vso[task.setVariable variable=validationSteps;isOutput=true]$validations"
+        echo "validations=$validations"
 
     - ${{ each var in variables.validationSteps }}:
       - script: echo '$(var.key)=$(var.value)' 
