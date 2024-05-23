@@ -41,7 +41,7 @@ stages:
                 'unoCheckArgs' = '--pre-major'
                 'validations' = 
                     '
-                      { ''Name'': ''Recommended'', `'Args'': ''-preset recommended'' },
+                      { ''Name'': ''Recommended'', ''Args'': ''-preset recommended'' },
                       { ''Name'': ''Blank'', ''Args'': ''-preset blank'' },
                     '
             }
