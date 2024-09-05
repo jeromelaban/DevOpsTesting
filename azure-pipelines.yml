@@ -24,7 +24,6 @@ stages:
       displayName: 'Setup .NET (Windows)'
 
     - pwsh: |
-        cd src
         dotnet --version
         dotnet --list-sdks
         dotnet workload install wasm-tools
