@@ -24,15 +24,15 @@ stages:
       displayName: 'Setup .NET (Windows)'
 
     - pwsh: |
-		    dotnet nuget add source -n "dotnet-public" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-public/nuget/v3/index.json
-		    dotnet nuget add source -n "dotnet-tools" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json
-		    dotnet nuget add source -n "dotnet-eng" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-eng/nuget/v3/index.json
-		    dotnet nuget add source -n "dotnet-libraries" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-libraries/nuget/v3/index.json
-		    dotnet nuget add source -n "dotnet-libraries-transport" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-libraries-transport/nuget/v3/index.json
-		    dotnet nuget add source -n "dotnet9" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json
-		    dotnet nuget add source -n "dotnet9-transport" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9-transport/nuget/v3/index.json
-		    dotnet nuget add source -n "dotnet10" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet10/nuget/v3/index.json
-		    dotnet nuget add source -n "dotnet10-transport" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet10-transport/nuget/v3/index.json
+        dotnet nuget add source -n "dotnet-public" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-public/nuget/v3/index.json
+        dotnet nuget add source -n "dotnet-tools" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json
+        dotnet nuget add source -n "dotnet-eng" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-eng/nuget/v3/index.json
+        dotnet nuget add source -n "dotnet-libraries" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-libraries/nuget/v3/index.json
+        dotnet nuget add source -n "dotnet-libraries-transport" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-libraries-transport/nuget/v3/index.json
+        dotnet nuget add source -n "dotnet9" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json
+        dotnet nuget add source -n "dotnet9-transport" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9-transport/nuget/v3/index.json
+        dotnet nuget add source -n "dotnet10" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet10/nuget/v3/index.json
+        dotnet nuget add source -n "dotnet10-transport" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet10-transport/nuget/v3/index.json
 
       displayName: Setup feeds
 
