@@ -35,10 +35,11 @@ stages:
     
     - pwsh: |
         cd testconsole01
-        dotnet publish -p:WasmCachePath=$env:tmp\emsdk -p:WasmBuildNative=true /bl:$(Build.ArtifactStagingDirectory)\msbuild.binlog
+        dotnet publish -p:WasmCachePath=$env:TMP\emsdk -p:WasmBuildNative=true /bl:$(Build.ArtifactStagingDirectory)\msbuild.binlog
 
 
     - task: PublishPipelineArtifact@1
+      condition: always()
       inputs:
         targetPath: $(Build.ArtifactStagingDirectory)
         artifactName: dotnet-sdk-binaries
