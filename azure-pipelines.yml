@@ -16,7 +16,7 @@ stages:
       fetchDepth: 0
       
     - pwsh: |
-        $DotNetRoot = "C:\hostedtoolcache\windows\dotnet"
+        $DotNetRoot = "C:\Program Files\dotnet\sdk"
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile ".\installcli.ps1"
         & .\installcli.ps1 -c 9.0 -q daily -InstallDir $DotNetRoot
 
@@ -32,7 +32,7 @@ stages:
 
       displayName: Setup Workloads
 
-    - pwsh: dotnet new wasmconsole -o testconsole01
+    - pwsh: dotnet new wasmconsole -o testconsole01 -f net9.0
     
     - pwsh: |
         cd testconsole01
