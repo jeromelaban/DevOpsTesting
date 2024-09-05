@@ -35,6 +35,7 @@ stages:
     
     - pwsh: |
         cd testconsole01
+        mkdir $env:TMP\emsdk
         dotnet publish -p:WasmCachePath=$env:TMP\emsdk -p:WasmBuildNative=true /bl:$(Build.ArtifactStagingDirectory)\msbuild.binlog
 
 
