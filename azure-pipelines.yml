@@ -26,6 +26,7 @@ stages:
     - pwsh: |
         dotnet --version
         dotnet --list-sdks
+        dotnet workload list
         dotnet workload install wasm-tools
         dotnet workload install wasm-experimental
 
