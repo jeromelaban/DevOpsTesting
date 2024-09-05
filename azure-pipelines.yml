@@ -16,7 +16,7 @@ stages:
       fetchDepth: 0
       
     - pwsh: |
-        $DotNetRoot = "C:\Program Files\dotnet\sdk"
+        $DotNetRoot = "C:\Program Files\dotnet"
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile ".\installcli.ps1"
         & .\installcli.ps1 -c 9.0 -q daily -InstallDir $DotNetRoot
 
