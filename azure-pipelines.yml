@@ -23,6 +23,12 @@ stages:
       inputs:
         version: 9.0.100-rc.1.24452.12
         includePreviewVersions: true
+
+    - pwsh: |
+        dotnet new console -o testconsole01
+        cd testconsole01
+        dotnet add testconsole01.csproj package System.Text.Json --version 8.0.4
+        copy $env:USERPROFILE\.nuget\packages\System.Text.Json\8.0.4\lib\net462\System.Text.Json.dll C:\Program Files\dotnet\sdk\9.0.100-rc.1.24452.12\Sdks\Microsoft.NET.Sdk\tools\net472       
     
     - pwsh: |
         dotnet new install uno.templates
