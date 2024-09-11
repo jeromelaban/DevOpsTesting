@@ -27,8 +27,11 @@ stages:
     - pwsh: |
         dotnet new install uno.templates
         dotnet new unoapp --platforms windows -tfm net9.0 -o test01
+
+        $msbuild = vswhere -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
+
         cd test01
-        dotnet build
+        & $msbuild /r /p:TargetFramework=net9.0-windows10.0.19041
 
     - task: PublishPipelineArtifact@1
       condition: always()
