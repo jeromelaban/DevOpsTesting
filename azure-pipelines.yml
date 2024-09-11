@@ -15,11 +15,11 @@ stages:
       clean: 'true'
       fetchDepth: 0
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1.7.2
-      with:
-        dotnet-version: '9.0.100-rc.1.24452.12'
-        include-prerelease: true
+    - task: UseDotNet@2
+      displayName: 'Use .NET SDK'
+      inputs:
+        version: 9.0.100-rc.1.24452.12
+        includePreviewVersions: true
     
     - pwsh: |
         cd testnet9
