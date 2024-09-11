@@ -14,44 +14,16 @@ stages:
     - checkout: self
       clean: 'true'
       fetchDepth: 0
-      
-    - pwsh: |
-        $DotNetRoot = "C:\Program Files\dotnet"
-        Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile ".\installcli.ps1"
-        & .\installcli.ps1 -c 9.0 -q daily -InstallDir $DotNetRoot
 
-      condition: and(succeeded(), eq( variables['Agent.OS'], 'Windows_NT' ))
-      displayName: 'Setup .NET (Windows)'
-
-    - pwsh: |
-        dotnet nuget add source -n "dotnet-public" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-public/nuget/v3/index.json
-        dotnet nuget add source -n "dotnet-tools" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json
-        dotnet nuget add source -n "dotnet-eng" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-eng/nuget/v3/index.json
-        dotnet nuget add source -n "dotnet-libraries" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-libraries/nuget/v3/index.json
-        dotnet nuget add source -n "dotnet-libraries-transport" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-libraries-transport/nuget/v3/index.json
-        dotnet nuget add source -n "dotnet9" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json
-        dotnet nuget add source -n "dotnet9-transport" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9-transport/nuget/v3/index.json
-        dotnet nuget add source -n "dotnet10" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet10/nuget/v3/index.json
-        dotnet nuget add source -n "dotnet10-transport" https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet10-transport/nuget/v3/index.json
-
-      displayName: Setup feeds
-
-    - pwsh: |
-        dotnet --version
-        dotnet --list-sdks
-        dotnet workload list
-        dotnet workload install wasm-tools
-        dotnet workload install wasm-experimental
-
-      displayName: Setup Workloads
-
-    - pwsh: dotnet new wasmconsole -o testconsole01 -f net9.0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: '9.0.100-rc.1.24452.12'
+        include-prerelease: true
     
     - pwsh: |
-        cd testconsole01
-        mkdir $env:TMP\emsdk
-        dotnet publish -p:WasmCachePath=$env:TMP\emsdk -p:WasmBuildNative=true /bl:$(Build.ArtifactStagingDirectory)\msbuild.binlog
-
+        cd testnet9
+        dotnet build
 
     - task: PublishPipelineArtifact@1
       condition: always()

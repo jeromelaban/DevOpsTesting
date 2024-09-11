@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Rebuild">
+  
+  <!-- 
+  Program.cs
+
+  System.Console.WriteLine("Hello, World!");
+  -->
+
+  <PropertyGroup>
+    <TargetFrameworks>net2.0;net4.0;net9.0</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.ILAsm" Version="9.0.0-rc.1.24431.7" />
+    <PackageReference Include="Microsoft.NETCore.ILDAsm" Version="9.0.0-rc.1.24431.7" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <PropertyGroup>
+        <ILAsmPath>"$(TargetDir)ilasm" /dll /NOLOGO /QUIET "$(TargetDir)$(TargetName).res"</ILAsmPath>
+        <ILDAsmPath>"$(TargetDir)ildasm" /LINENUM</ILDAsmPath>
+        <ILAsmArgs>/out:"$(TargetDir)$(TargetName).dll" "$(TargetDir)$(TargetName).il"</ILAsmArgs>
+        <ILDAsmArgs>/out:"$(TargetDir)$(TargetName).il" "$(TargetPath)"</ILDAsmArgs>
+      </PropertyGroup>
+
+      <Message Importance="High" Text="Platform/Framework: $(Platform) / $(TargetFramework)"></Message>
+      <Message Importance="High" Text="ILAsm: $(ILAsmPath) $(ILAsmArgs)"></Message>
+      <Message Importance="High" Text="ILDAsm: $(ILDAsmPath) $(ILDAsmArgs)"></Message>
+
+      <Exec Command="dir /b $(TargetDir)"/>
+      <Exec Command="$(ILDAsmPath) $(ILDAsmArgs)"/>
+      <Exec Command="$(ILAsmPath) $(ILAsmArgs)" />
+  </Target>
+
+</Project>
