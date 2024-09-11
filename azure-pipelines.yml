@@ -26,7 +26,7 @@ stages:
     
     - pwsh: |
         dotnet new install uno.templates
-        dotnet new unoapp --platforms windows -o test01
+        dotnet new unoapp --platforms windows -tfm net9.0 -o test01
         cd test01
         dotnet build
 
