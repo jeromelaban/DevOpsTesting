@@ -10,6 +10,9 @@ stages:
   jobs:
   - job: Build
 
+    pool:
+      vmImage: 'windows-2022'
+
     steps:
     - checkout: self
       clean: 'true'
@@ -23,7 +26,7 @@ stages:
     
     - pwsh: |
         cd testnet9
-        dotnet build
+        dotnet build -restore -tl:off -v:m --maxcpucount:1
 
     - task: PublishPipelineArtifact@1
       condition: always()
