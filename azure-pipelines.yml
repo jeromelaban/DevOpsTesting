@@ -25,6 +25,7 @@ stages:
         includePreviewVersions: true
 
     - pwsh: |
+        dotnet --info
         dotnet new console -o testconsole01
         cd testconsole01
         dotnet add testconsole01.csproj package System.Text.Json --version 8.0.4
