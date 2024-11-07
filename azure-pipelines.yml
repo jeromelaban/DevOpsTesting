@@ -11,47 +11,24 @@ stages:
   - job: Pipeline_Validations
 
     pool:
-      vmImage: 'windows-2022'
+      vmImage: 'macos-15'
 
     steps:
     - checkout: self
       clean: 'true'
       fetchDepth: 0
 
-    - task: gitversion/setup@0
-      retryCountOnTaskFailure: 3
-      inputs:
-        versionSpec: '5.10.3'
-
-    - task: gitversion/execute@0
-      retryCountOnTaskFailure: 3
-      inputs:
-        updateAssemblyInfo: 'False'
-        useConfigFile: true
-        configFilePath: gitversion.yml
-      displayName: Use GitVersion
-      name: gitversion
-
-    - task: PublishPipelineArtifact@1
-      condition: always()
-      inputs:
-        targetPath: $(Build.ArtifactStagingDirectory)
-        artifactName: dotnet-sdk-binaries
-        
-- stage: Stage2
-  jobs:
-  - job: Job1
-    steps:
-      # This step changes the PR version ID so that produced nuget packages can be tied
-      # to specific builds. This can be used to create canaries from PR artifacts.
-      - powershell: |
-          echo "##vso[task.setvariable variable=GitVersion.semVer]$[ stageDependencies.Setup.Pipeline_Validations.outputs['gitversion.semVer'] ]"
-          echo "##vso[task.setvariable variable=GitVersion.fullSemVer]$[ stageDependencies.Setup.Pipeline_Validations.outputs['gitversion.fullSemVer'] ]"
-        
-        displayName: Set GitVersion Environment
-
-      - powershell: |
-          echo "semVer=$(GitVersion.semVer)"
-          echo "fullSemVer=$(GitVersion.fullSemVer)"
-        
-        displayName: Set GitVersion Environment
+    - run: |
+        /bin/bash -c "sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer"
+  
+        echo "Listing iOS simulators"
+        xcrun simctl list devices --json
+  
+        export UNO_UITEST_SIMULATOR_VERSION="com.apple.CoreSimulator.SimRuntime.iOS-18-1"
+        export UNO_UITEST_SIMULATOR_NAME="iPad Pro 13-inch (M4)"
+  
+        export UITEST_IOSDEVICE_ID=`xcrun simctl list -j | jq -r --arg sim "$UNO_UITEST_SIMULATOR_VERSION" --arg name "$UNO_UITEST_SIMULATOR_NAME" '.devices[$sim] | .[] | select(.name==$name) | .udid'`
+        xcrun simctl boot $UITEST_IOSDEVICE_ID
+  
+        sleep 300
+      name: Run
