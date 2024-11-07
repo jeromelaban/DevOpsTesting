@@ -18,7 +18,7 @@ stages:
       clean: 'true'
       fetchDepth: 0
 
-    - run: |
+    - bash: |
         /bin/bash -c "sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer"
   
         echo "Listing iOS simulators"
