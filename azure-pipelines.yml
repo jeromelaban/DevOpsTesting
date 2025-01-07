@@ -19,5 +19,5 @@ stages:
 
             wget https://dot.net/v1/dotnet-install.sh
             chmod +x dotnet-install.sh
-            bash "dotnet-install.sh" --install-dir "/Users/runner/hostedtoolcache/dotnet" --version "9.0.100"
+            bash "dotnet-install.sh" --install-dir "/tmp/.dotnet" --version "9.0.100"
         displayName: Install dotnet
