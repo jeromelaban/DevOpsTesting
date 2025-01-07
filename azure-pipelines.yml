@@ -15,10 +15,9 @@ stages:
 
     steps:
       - bash: |
-            set -euo pipefail
             set -x
-            
+
             wget https://dot.net/v1/dotnet-install.sh
             chmod +x dotnet-install.sh
-            sh "dotnet-install.sh" --install-dir "/Users/runner/hostedtoolcache/dotnet" --version "9.0.100"
+            bash "dotnet-install.sh" --install-dir "/Users/runner/hostedtoolcache/dotnet" --version "9.0.100"
         displayName: Install dotnet
